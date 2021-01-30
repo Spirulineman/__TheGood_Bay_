@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AnnonceController!{% endblock %}
+
+{% block body %}
+<style>
+    {# .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; } #}
+</style>
+{# ============  Afficher les annonces  ================ #}
+<div>
+    <table>
+        <thead>
+            <tr>
+                <th>titre</th>
+                <th>description</th>
+                <th>prix_depart</th>
+                <th>date_fin</th>
+                {# <th>date_debut</th> #}
+                <th>prix_plafond</th>
+                <th>vente_immediate</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for annonces in annonce %}
+           
+            <tr>
+                <td>{{annonces.titre}}</td>
+                <td>{{annonces.description}}</td>
+                <td>{{annonces.PrixDepart}}</td>
+                <td>{{annonces.DateFin | date ('d/m/Y')}}</td>
+
+                {# <td>{{annonces.date_debut}}</td> #}
+                <td>{{annonces.PrixPlafond}}</td>
+                <td>{{annonces.VenteImmediate}}</td>
+
+
+            </tr>
+            
+            {% endfor %}
+            <a href={{path('create_annonce')}}>Nouvelle annonce</a>
+        </tbody>
+</div>
+{% endblock %}
