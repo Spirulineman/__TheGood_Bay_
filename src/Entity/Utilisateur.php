@@ -54,12 +54,7 @@ class Utilisateur
      */
     private $Acheteur_Enchere;
 
-    /**
-     * @ORM\OneToOne(targetEntity=VenteEnchere::class, mappedBy="IdAcheteur", cascade={"persist", "remove"})
-     */
-    private $venteEnchere;
-
-    /**
+     /**
      * @ORM\OneToMany(targetEntity=Message::class, mappedBy="IdEnvoi")
      */
     private $Envoi;
@@ -69,6 +64,11 @@ class Utilisateur
      */
     private $Recoit;
 
+    /**
+     * @ORM\OneToMany(targetEntity=VenteEnchere::class, mappedBy="Encherisseur")
+     */
+    private $VenteEnchere;
+
     public function __construct()
     {
         $this->annonces = new ArrayCollection();
@@ -76,6 +76,7 @@ class Utilisateur
         $this->Acheteur_Enchere = new ArrayCollection();
         $this->Envoi = new ArrayCollection();
         $this->Recoit = new ArrayCollection();
+        $this->VenteEnchere = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -198,7 +199,7 @@ class Utilisateur
 
     /**
      * @return Collection|Enchere[]
-     */
+     *//* 
     public function getAcheteurEnchere(): Collection
     {
         return $this->Acheteur_Enchere;
@@ -225,23 +226,8 @@ class Utilisateur
 
         return $this;
     }
-
-    public function getVenteEnchere(): ?VenteEnchere
-    {
-        return $this->venteEnchere;
-    }
-
-    public function setVenteEnchere(VenteEnchere $venteEnchere): self
-    {
-        // set the owning side of the relation if necessary
-        if ($venteEnchere->getIdAcheteur() !== $this) {
-            $venteEnchere->setIdAcheteur($this);
-        }
-
-        $this->venteEnchere = $venteEnchere;
-
-        return $this;
-    }
+ */
+    
 
     /**
      * @return Collection|Message[]
@@ -297,6 +283,28 @@ class Utilisateur
             // set the owning side to null (unless already changed)
             if ($recoit->getIdRecoit() === $this) {
                 $recoit->setIdRecoit(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function addVenteEnchere(VenteEnchere $venteEnchere): self
+    {
+        if (!$this->VenteEnchere->contains($venteEnchere)) {
+            $this->VenteEnchere[] = $venteEnchere;
+            $venteEnchere->setEncherisseur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeVenteEnchere(VenteEnchere $venteEnchere): self
+    {
+        if ($this->VenteEnchere->removeElement($venteEnchere)) {
+            // set the owning side to null (unless already changed)
+            if ($venteEnchere->getEncherisseur() === $this) {
+                $venteEnchere->setEncherisseur(null);
             }
         }
 

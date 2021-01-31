@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AnnonceController!{% endblock %}
+
+{% block body %}
+<style>
+    {# .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; } #}
+</style>
+{# ============  Formulaire de création d'annonce  ================ #}
+
+    {{form_start(form)}}
+    {{form_row(form.IdCategorie)}}
+    {{form_row(form.titre)}}
+    {{form_row(form.description)}}
+    {{form_row(form.prix_depart)}}
+    {{form_row(form.date_debut)}}
+    {{form_row(form.date_fin)}}
+    {{form_row(form.prix_plafond)}}
+    {{form_row(form.vente_immediate)}}
+
+
+    
+    {{form_row(form.save)}}
+    {{form_end(form)}}
+
+</div>
+{% endblock %}

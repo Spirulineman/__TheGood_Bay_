@@ -2,24 +2,29 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Entity\Annonce;
 
 /* ************************************************************************** */
 
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\MoneyType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use App\Entity\Categorie;
+use App\Form\CategorieType;
+use App\Entity\VenteImmediate;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 
 /* ************************************************************************** */
 
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-use Symfony\Component\HttpFoundation\Request;
-use App\Entity\Annonce;
-use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\MoneyType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class AnnonceController extends AbstractController
 {
@@ -52,8 +57,13 @@ class AnnonceController extends AbstractController
         /* ================================================================ */
         // formulaire de création d'une nouvelle annonce :
         $form = $this->createFormBuilder($annonce)
+        ->add('IdCategorie', EntityType::class,[
+            'class' => Categorie::class,
+            'choice_label' => 'titre',
+            'multiple' => false
+        ] )
         ->add('titre', TextType::class)
-        ->add('description', TextType::class)
+        ->add('description', TextareaType::class)
         ->add('prix_depart', MoneyType::class)
         ->add('date_fin', DateType::class)
         ->add('date_debut', DateType::class)
@@ -76,13 +86,14 @@ class AnnonceController extends AbstractController
 
         //requête vers la bdd
         if ($form->isSubmitted() && $form->isValid()) {
+            $annonce->setDisponible(true);
             $manager->persist($annonce);
             $manager->flush();
             return $this->redirectToRoute('annonce');
         }
 
         //affiche le formulaire (rendu) 
-        return $this->render('annonce/index.html.twig', [
+        return $this->render('annonce/createAnnonce.html.twig', [
             'annonce' => $annonce,
             'form' => $form->createView()
         ]);

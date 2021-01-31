@@ -45,6 +45,46 @@ class VenteEnchere
      */
     private $IdAnnonce;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $prixDepart;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $prixVendu;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $propositionEncherisseur;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $dateDepart;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $dateFinEnchere;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Utilisateur::class, inversedBy="VenteEnchere")
+     */
+    private $Encherisseur;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $meilleurPrix;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $gagnant;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -106,6 +146,102 @@ class VenteEnchere
     public function setIdAnnonce(?Annonce $IdAnnonce): self
     {
         $this->IdAnnonce = $IdAnnonce;
+
+        return $this;
+    }
+
+    public function getPrixDepart(): ?int
+    {
+        return $this->prixDepart;
+    }
+
+    public function setPrixDepart(int $prixDepart): self
+    {
+        $this->prixDepart = $prixDepart;
+
+        return $this;
+    }
+
+    public function getPrixVendu(): ?int
+    {
+        return $this->prixVendu;
+    }
+
+    public function setPrixVendu(int $prixVendu): self
+    {
+        $this->prixVendu = $prixVendu;
+
+        return $this;
+    }
+
+    public function getPropositionEncherisseur(): ?int
+    {
+        return $this->propositionEncherisseur;
+    }
+
+    public function setPropositionEncherisseur(int $propositionEncherisseur): self
+    {
+        $this->propositionEncherisseur = $propositionEncherisseur;
+
+        return $this;
+    }
+
+    public function getDateDepart(): ?\DateTimeInterface
+    {
+        return $this->dateDepart;
+    }
+
+    public function setDateDepart(\DateTimeInterface $dateDepart): self
+    {
+        $this->dateDepart = $dateDepart;
+
+        return $this;
+    }
+
+    public function getDateFinEnchere(): ?\DateTimeInterface
+    {
+        return $this->dateFinEnchere;
+    }
+
+    public function setDateFinEnchere(\DateTimeInterface $dateFinEnchere): self
+    {
+        $this->dateFinEnchere = $dateFinEnchere;
+
+        return $this;
+    }
+
+    public function getEncherisseur(): ?Utilisateur
+    {
+        return $this->Encherisseur;
+    }
+
+    public function setEncherisseur(?Utilisateur $Encherisseur): self
+    {
+        $this->Encherisseur = $Encherisseur;
+
+        return $this;
+    }
+
+    public function getMeilleurPrix(): ?int
+    {
+        return $this->meilleurPrix;
+    }
+
+    public function setMeilleurPrix(int $meilleurPrix): self
+    {
+        $this->meilleurPrix = $meilleurPrix;
+
+        return $this;
+    }
+
+    public function getGagnant(): ?bool
+    {
+        return $this->gagnant;
+    }
+
+    public function setGagnant(?bool $gagnant): self
+    {
+        $this->gagnant = $gagnant;
 
         return $this;
     }

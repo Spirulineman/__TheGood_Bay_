@@ -49,7 +49,7 @@ class AnnonceFixtures extends Fixture
             $annonce->setDescription($faker->text($maxNbChars = 250));
             $annonce->setDateFin($faker->dateTimeBetween($startDate = 'now', $endDate = '+30 days', $timezone = null));
             $annonce->setPrixDepart($faker->numberBetween($min = 1, $max = 50));
-            /* $annonce->setDateDebut($faker->dateTimeBetween($startDate = 'now', $endDate = '+30 days', $timezone = null)); */
+            $annonce->setDateDebut($faker->dateTimeBetween($startDate = 'now', $endDate = '+30 days', $timezone = null));
             $annonce->setPrixPlafond($faker->numberBetween($min = 1, $max = 50));
             $annonce->setVenteImmediate($faker->boolean);
             $annonce->setIdCategorie($categorie);

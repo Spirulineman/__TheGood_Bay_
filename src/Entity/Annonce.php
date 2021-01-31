@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\AnnonceRepository;
+use App\Repository\VenteImmediateRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -18,6 +19,11 @@ class Annonce
      * @ORM\Column(type="integer")
      */
     private $id;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    /* private $categorie; */
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -83,7 +89,12 @@ class Annonce
     /**
      * @ORM\Column(type="datetime")
      */
-    private $date_debut;
+    private $DateDebut;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $disponible;
 
     public function __construct()
     {
@@ -96,6 +107,18 @@ class Annonce
     {
         return $this->id;
     }
+
+    /* public function getCategorie(): ?string
+    {
+        return $this->categorie;
+    }
+
+    public function setCategorie(string $categorie): self
+    {
+        $this->categorie = $categorie;
+
+        return $this;
+    } */
 
     public function getTitre(): ?string
     {
@@ -291,6 +314,18 @@ class Annonce
                 $photo->setIdAnnonce(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getDisponible(): ?bool
+    {
+        return $this->disponible;
+    }
+
+    public function setDisponible(bool $disponible): self
+    {
+        $this->disponible = $disponible;
 
         return $this;
     }

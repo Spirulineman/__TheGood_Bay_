@@ -16,7 +16,7 @@
                 <th>description</th>
                 <th>prix_depart</th>
                 <th>date_fin</th>
-                {# <th>date_debut</th> #}
+                <th>date_debut</th>
                 <th>prix_plafond</th>
                 <th>vente_immediate</th>
             </tr>
@@ -29,8 +29,7 @@
                 <td>{{annonces.description}}</td>
                 <td>{{annonces.PrixDepart}}</td>
                 <td>{{annonces.DateFin | date ('d/m/Y')}}</td>
-
-                {# <td>{{annonces.date_debut}}</td> #}
+                <td>{{annonces.DateDebut | date ('d/m/Y')}}</td>
                 <td>{{annonces.PrixPlafond}}</td>
                 <td>{{annonces.VenteImmediate}}</td>
 
